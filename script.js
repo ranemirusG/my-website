@@ -3,9 +3,8 @@ var currentImageIndex = 0; // Initialize the current image index
 // Manually list image filenames and captions
 var imageInfo = [
     { src: "images/campo-duran.jpg", caption: "Campo Durán, Salta, Argentina. July 2023" },
-    { src: "images/pic-bash.jpg", caption: "Me and my cousin playing Age of Empires ca. 2004" },
-    { src: "images/flan.jpg", caption: "Delicious Flan Dessert" },
-    { src: "images/windows_chess_user_icon.jpg", caption: "testing" },
+    { src: "images/jardi-del-turia.jpg", caption: "Jardí del Túria, València. October 2023" },
+    { src: "images/pic-bash.jpg", caption: "Me and my cousin playing AOE circa 2004" },
     // Add more images and captions as needed
 ];
 
