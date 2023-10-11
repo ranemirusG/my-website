@@ -21,14 +21,14 @@ html {
 
 /* Style headings for better hierarchy */
 h1 {
-  font-size: 1.5em;
-  /* margin-bottom: .5em; */
+  /* font-size: 1.5em; */
+  /* margin-bottom: 1em; */
 }
 
 h2 {
   text-decoration: underline !important;
   font-size: 1.5em;
-  margin-top: 20px;
+  margin-top: 2em;
   margin-bottom: .25em;
 }
 
@@ -62,7 +62,7 @@ a:hover {
 ul {
   list-style-type: none;
   padding: 0;
-  margin-bottom: 2em;
+  /* margin-bottom: 2em; */
 }
 
 li {
@@ -75,7 +75,7 @@ li {
 
 .dateline {
 	color: #708090;
-	font-size: smaller;
+	/* font-size: smaller; */
 }
 
 .contact-icons{
@@ -83,7 +83,8 @@ li {
 }
 
 .contact-icons li{
-	margin-right: 1.75em;
+	margin-right: 1.4em;
+	margin-bottom:0;
 }
 
 .wip li{
