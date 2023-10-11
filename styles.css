@@ -83,6 +83,7 @@ li {
 }
 
 .contact-icons li{
+	/* margin-top: 2em; */
 	margin-right: 1.4em;
 	margin-bottom:0;
 }
