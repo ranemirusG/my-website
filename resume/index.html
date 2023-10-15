@@ -3,7 +3,7 @@
 		<meta name="robots" content="noindex, nofollow" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="icon" href="images/zgz.png">
+		<link rel="icon" href="../images/zgz.png">
 		<link rel="stylesheet" type="text/css" href="../styles.css" />
 		<script src="https://kit.fontawesome.com/9ce22b9205.js" crossorigin="anonymous"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script> 
@@ -13,100 +13,96 @@
 		<title>resume</title>
 		<style>
 			html{
-			font-size: 14px;
+				font-size: 14px;
 			}
 			h2{
-			color: #708090;
+				color: #708090;
 			}
 			h3{
-			font-weight:bold;
-			margin-bottom: .5em;
+				font-weight:bold;
+				margin-bottom: .5em;
 			}
 			p{
-			margin-bottom: 1em;
+				margin-bottom: 1em;
 			}
 
 
-        /* Hide the PDF version by default */
-        .pdf-version {
-            display: none;
-        }
+			/* Hide the PDF version by default */
+			.pdf-version {
+				display: none;
+			}
 
-        /* Style for the "Download as PDF" button */
-        #pdf-button {
-            margin-right: .5em;
-			font-weight: bold;
-			border: 3px solid;
-			color: #f44336;
-			font-size: 1.5em;
-			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-            <!-- margin-top: 20px; -->
-            <!-- display: none; -->
-        }
-		#pdf-button:hover {
-			cursor:	pointer;
-			
-		}
-		#pdf-button:active {
-		  box-shadow: 5px;
-		  transform: translateY(5px);
-}
+			/* Style for the download button */
+			#pdf-button {
+				margin-right: .5em;
+				font-weight: bold;
+				border: 3px solid;
+				color: #f44336;
+				font-size: 1.5em;
+				box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+				<!-- margin-top: 20px; -->
+				<!-- display: none; -->
+			}
+			#pdf-button:hover {
+				cursor:	pointer;
+			}
+			#pdf-button:active {
+			  box-shadow: 5px;
+			  transform: translateY(5px);
+			}
 		</style>
 	</head>
 	<body>
 		<div class="container">
 			<header>
             <h1>Ramiro Garcia</h1>
-			<!-- <button onclick="window.print();">Download as PDF</button> -->
+		<!-- Online version -->
+		<section id="contact">
+			<ul class="contact-icons">
+				<li>
+					<a href="https://www.x.com/ranemirusG" target="_blank"><i class="fa-brands fa-x-twitter fa-3x"></i></a>
+				</li>
+				<li>
+					<a href="https://www.linkedin.com/in/garcia-ramiro" target="_blank"><i class="fa-brands fa-linkedin fa-3x"></i></a>
+				</li>
+				<li>
+					<a href="https://github.com/ranemirusG" target="_blank"><i class="fa-brands fa-github fa-3x"></i></a>
+				</li>
+				<li>
+					<a href="mailto:hire-me@ramirogarcia.xyz"><i class="fa-regular fa-envelope fa-3x"></i></a>
+				</li>
+			</ul>
+		</section>
 
+		<!-- PDF version -->
+		<section id="contact-pdf" class="pdf-version">
+			<ul>
+				<li>
+					<i class="fa-brands fa-x-twitter" aria-label="x-twitter icon"></i>
+					<!-- <br> -->
+					<a href="https://www.x.com/ranemirusG" title="X">@ranemirusG </a>
+				</li>
+				<li>
+					<i class="fa-brands fa-linkedin" aria-label="linkedin icon"></i>
+					<!-- <br> -->
+					<a href="https://www.linkedin.com/in/garcia-ramiro" title="LinkedIn">https://linkedin.com/in/garcia-ramiro</a>
+				</li>
+				<li>
+					<i class="fa-brands fa-github" aria-label="github icon"></i>
+					<!-- <br> -->
+					<a href="https://github.com/ranemirusG" title="GitHub">https://github.com/ranemirusG</a>
+				</li>
+				<li>
+					<i class="fa-regular fa-envelope" aria-label="envelope icon"></i>
+					<!-- <br> -->
+					<a href="mailto:hire-me@ramirogarcia.xyz" class="email">hire-me@ramirogarcia.xyz</a>
+				</li>
+			</ul>
+		</section>
 
-    <!-- Online version -->
-    <section id="contact">
-        <ul class="contact-icons">
-            <li>
-				<a href="https://www.x.com/ranemirusG" target="_blank"><i class="fa-brands fa-x-twitter fa-3x"></i></a>
-			</li>
-            <li>
-				<a href="https://www.linkedin.com/in/garcia-ramiro" target="_blank"><i class="fa-brands fa-linkedin fa-3x"></i></a>
-			</li>
-            <li>
-				<a href="https://github.com/ranemirusG" target="_blank"><i class="fa-brands fa-github fa-3x"></i></a>
-			</li>
-            <li>
-				<a href="mailto:hire-me@ramirogarcia.xyz"><i class="fa-regular fa-envelope fa-3x"></i></a>
-			</li>
-        </ul>
-    </section>
-
-    <!-- PDF version -->
-    <section id="contact-pdf" class="pdf-version">
-        <ul>
-            <li>
-				<i class="fa-brands fa-x-twitter" aria-label="x-twitter icon"></i>
-				<!-- <br> -->
-				<a href="https://www.x.com/ranemirusG" title="X">@ranemirusG </a>
-			</li>
-            <li>
-				<i class="fa-brands fa-linkedin" aria-label="linkedin icon"></i>
-				<!-- <br> -->
-				<a href="https://www.linkedin.com/in/garcia-ramiro" title="LinkedIn">https://linkedin.com/in/garcia-ramiro</a>
-			</li>
-            <li>
-				<i class="fa-brands fa-github" aria-label="github icon"></i>
-				<!-- <br> -->
-				<a href="https://github.com/ranemirusG" title="GitHub">https://github.com/ranemirusG</a>
-			</li>
-            <li>
-				<i class="fa-regular fa-envelope" aria-label="envelope icon"></i>
-				<!-- <br> -->
-				<a href="mailto:hire-me@ramirogarcia.xyz" class="email">hire-me@ramirogarcia.xyz</a>
-			</li>
-        </ul>
-    </section>
-
-    <!-- Button to toggle between online and PDF versions -->
-    <button id="pdf-button" onclick="generatePDF()">Download <i class="fa-solid fa-file-pdf" aria-label="file-pdf icon"></i></button>
-			
+		<!-- Button to toggle between online and PDF versions -->
+		<button id="pdf-button" onclick="generatePDF()">Download <i class="fa-solid fa-file-pdf" aria-label="file-pdf icon"></i></button>
+				
         </header>
 			<h2 id="experience">Experience</h2>
 			<ul>
