@@ -6,6 +6,10 @@
 		<link rel="icon" href="images/zgz.png">
 		<link rel="stylesheet" type="text/css" href="../styles.css" />
 		<script src="https://kit.fontawesome.com/9ce22b9205.js" crossorigin="anonymous"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script> 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"></script>
+
 		<title>resume</title>
 		<style>
 			html{
@@ -22,32 +26,91 @@
 			margin-bottom: 1em;
 			}
 
+
+        /* Online version styles */
+        <!-- .contact-icons { -->
+            <!-- display: flex; -->
+        <!-- } -->
+
+        /* PDF version styles */
+        <!-- .pdf-version { -->
+            <!-- font-size: 18px; -->
+        <!-- } -->
+
+        /* Hide the PDF version by default */
+        .pdf-version {
+            display: none;
+        }
+
+        /* Style for the "Download as PDF" button */
+        #pdf-button {
+            margin-right: .5em;
+			font-weight: bold;
+			border: 3px solid;
+			color: #f44336;
+			font-size: 1.5em;
+			box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+            <!-- margin-top: 20px; -->
+            <!-- display: none; -->
+        }
+		#pdf-button:hover {
+			cursor:	pointer;
+			
+		}
+		#pdf-button:active {
+		  box-shadow: 5px;
+		  transform: translateY(5px);
+}
+
 		</style>
 	</head>
 	<body>
 		<div class="container">
 			<header>
             <h1>Ramiro Garcia</h1>
-			<!-- online version -->
-			<p>Resume (<a href="ramirogarcia_resume_oct23.pdf" target="_balnk" download="ramirogarcia_resume_oct23.pdf">Download PDF version</a>)</p>
-                <ul class="contact-icons">
-                    <li><a href="https://www.x.com/ranemirusG"><i class="fa-brands fa-x-twitter fa-3x"></i></a></li>
-                    <li><a href="https://www.linkedin.com/in/garcia-ramiro"><i class="fa-brands fa-linkedin fa-3x"></i></a></li>
-                    <li><a href="https://github.com/ranemirusG"><i class="fa-brands fa-github fa-3x"></i></a></li>
-                    <li><a href="mailto:hi@ramirogarcia.xyz"><i class="fa-regular fa-envelope fa-3x"></i></a></li>
-                </ul>
-				
-				
-			<!-- PDF version -->
-            <!-- <section id="contact"> -->
-				<!-- <ul> -->
-					<!-- <li>X: <a href="https://www.x.com/ranemirusG" 					title="X">@ranemirusG</a></li> -->
-					<!-- <li>LinkedIn: <a href="https://www.linkedin.com/in/garcia-ramiro" 					title="LinkedIn">linkedin.com/in/garcia-ramiro</a></li> -->
-					<!-- <li>GitHub: <a href="https://github.com/ranemirusG" 					title="GitHub">https://github.com/ranemirusG</a></li> -->
-					<!-- <li>E-Mail: <a href="mailto:hire-me@ramirogarcia.xyz" 					class="email">hire-me@ramirogarcia.xyz</a></li> -->
-				<!-- </ul> -->
-            <!-- </section> -->
-			
+			<!-- <button onclick="window.print();">Download as PDF</button> -->
+
+
+    <!-- Online version -->
+    <section id="contact">
+        <ul class="contact-icons">
+            <li>
+				<a href="https://www.x.com/ranemirusG"><i class="fa-brands fa-x-twitter fa-3x"></i></a>
+			</li>
+            <li><a href="https://www.linkedin.com/in/garcia-ramiro"><i class="fa-brands fa-linkedin fa-3x"></i></a></li>
+            <li><a href="https://github.com/ranemirusG"><i class="fa-brands fa-github fa-3x"></i></a></li>
+            <li><a href="mailto:hire-me@ramirogarcia.xyz"><i class="fa-regular fa-envelope fa-3x"></i></a></li>
+        </ul>
+    </section>
+
+    <!-- PDF version -->
+    <section id="contact-pdf" class="pdf-version">
+        <ul>
+            <li>
+				<i class="fa-brands fa-x-twitter fa-2x"></i>
+				<!-- <br> -->
+				<a href="https://www.x.com/ranemirusG" title="X">@ranemirusG</a>
+			</li>
+            <li>
+				<i class="fa-brands fa-linkedin fa-2x"></i>
+				<!-- <br> -->
+				<a href="https://www.linkedin.com/in/garcia-ramiro" title="LinkedIn">https://linkedin.com/in/garcia-ramiro</a>
+			</li>
+            <li>
+				<i class="fa-brands fa-github fa-2x"></i>
+				<!-- <br> -->
+				<a href="https://github.com/ranemirusG" title="GitHub">https://github.com/ranemirusG</a>
+			</li>
+            <li>
+				<i class="fa-regular fa-envelope fa-2x"></i>
+				<!-- <br> -->
+				<a href="mailto:hire-me@ramirogarcia.xyz" class="email">hire-me@ramirogarcia.xyz</a>
+			</li>
+        </ul>
+    </section>
+
+    <!-- Button to toggle between online and PDF versions -->
+    <button id="pdf-button" onclick="generatePDF()">Download <i class="fa-solid fa-file-pdf"></i></button>
 			
         </header>
 			<h2 id="experience">Experience</h2>
@@ -133,5 +196,51 @@
 			</li>
 			</ul>
 		</div>
+		<script type="text/javascript">
+			// Toggle between online and PDF versions
+
+		
+			function generatePDF() {
+			const onlineVersion = document.getElementById('contact');
+			const pdfVersion = document.getElementById('contact-pdf');
+			const pdfButton = document.getElementById('pdf-button');
+			
+			const options = {
+            margin: 10,
+            filename: `RamiroGarcia_${getCurrentDate()}.pdf`,
+            image: { type: 'jpeg', quality: 0.98 },
+            html2canvas: { scale: 2 },
+            jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        };
+			
+			
+			onlineVersion.style.display = 'none';
+				pdfVersion.style.display = 'block';
+				pdfButton.style.display = 'none';
+				// Choose the element id which you want to export.
+				var element = document.body; // Changed 'html' to 'body'
+				<!-- element.style.width = '700px'; -->
+				<!-- element.style.height = '900px'; -->
+				<!-- var opt = { -->
+					<!-- margin: 0.5, -->
+					<!-- filename: 'myfile.pdf', -->
+					<!-- image: { type: 'jpeg', quality: 1 }, -->
+					<!-- html2canvas: { scale: 1 }, -->
+					<!-- jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait', precision: 12 } -->
+				<!-- }; -->
+
+				// Choose the element and pass it to html2pdf() function and call the save() on it to save as pdf.
+				<!-- html2pdf().set(opt).from(element).save(); -->
+				html2pdf().from(element).set(options).save();
+			}
+			
+		function getCurrentDate() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }	
+		</script>
 	</body>
 </html>
