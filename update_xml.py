@@ -74,14 +74,18 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             item_description.text = description
             items_appended = True  # Items were appended
 
-# Insert the lastBuildDate into the HTML
+# Find the dateline span
 dateline_span = soup.find("span", class_="dateline")
+
 if dateline_span:
+    # Find the time element within the dateline span
     time_element = dateline_span.find("time")
+    
     if time_element:
         # Update the text within the time element
         time_element.string = datetime.datetime.now().strftime("%B %d, %Y")
-        # Update the surrounding text in the span
+
+        # Update the surrounding text in the dateline span
         dateline_span.string = f"(Updated: {time_element})"
 
 
