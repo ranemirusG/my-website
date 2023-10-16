@@ -1,7 +1,9 @@
-<rss version="2.0"><channel><title>ramirogarcia.xyz</title><link>https://ramirogarcia.xyz</link><item><title>
-						Collecting useful notes in this  
-</title><description>https://github.com/ranemirusG/toolbox-notes</description></item><item><title>
-						Now you can get my news is through   subscription!
-					</title><description>news_feed.xml</description></item><item><title>
+<rss version="2.0"><channel><title>ramirogarcia.xyz</title><link>https://ramirogarcia.xyz</link><lastBuildDate>Mon, 16 Oct 2023 13:55:50 </lastBuildDate><item><title>repository</title><description>https://github.com/ranemirusG/toolbox-notes</description></item><item><title>
+						I've identified parallels in Monk's "Brilliant Corners" and Revueltas' chamber work
+					</title><description>
+						I've identified parallels in Monk's "Brilliant Corners" and Revueltas' chamber work
+					</description></item><item><title>RSS feed</title><description>news_feed.xml</description></item><item><title>
 						Testing the rss
-					</title><description /></item><lastBuildDate>Mon, 16 Oct 2023 13:51:01 </lastBuildDate></channel></rss>
+					</title><description>
+						Testing the rss
+					</description></item></channel></rss>

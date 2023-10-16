@@ -40,35 +40,49 @@ if news_section:
     channel_link = ET.SubElement(channel, "link")
     channel_link.text = base_url
 
-    # Find and append new <li> items to the RSS feed
-    for li in news_section.find("ul", class_="wip").find_all("li"):
-        # Extract the content of the <li> element
-        li_text = ' '.join([str(text) for text in li.contents if isinstance(text, str)])
-
-        # Check if the item title already exists in the RSS feed
-        if li_text not in existing_items:
-            # Add the item to the existing items set and the RSS feed
-            existing_items.add(li_text)
-            
-            # Check if the <li> contains an <a> tag with an 'href' attribute
-            link_element = li.find("a", href=True)
-            if link_element:
-                # If a link is present, use it as the description
-                description = link_element["href"]
-            else:
-                # If no link is present, use an empty string as the description
-                description = ""
-                
-            item = ET.SubElement(channel, "item")
-            item_title = ET.SubElement(item, "title")
-            item_title.text = li_text
-            
-            item_description = ET.SubElement(item, "description")
-            item_description.text = description
-
     # Add <lastBuildDate> to the channel
     last_build_date = ET.SubElement(channel, "lastBuildDate")
     last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
+
+    # Find and append new <li> items to the RSS feed
+    for li in news_section.find("ul", class_="wip").find_all("li"):
+        # Check if the <li> contains an <a> tag with an 'href' attribute
+        link_element = li.find("a", href=True)
+        
+        if link_element:
+            # If a link is present, use it as the description
+            description = link_element["href"]
+            
+            # Use the link text as the title
+            title_text = link_element.text
+            
+            if title_text:
+                # Check if the item title already exists in the RSS feed
+                if title_text not in existing_items:
+                    # Add the item to the existing items set and the RSS feed
+                    existing_items.add(title_text)
+                    
+                    item = ET.SubElement(channel, "item")
+                    item_title = ET.SubElement(item, "title")
+                    item_title.text = title_text
+
+                    item_description = ET.SubElement(item, "description")
+                    item_description.text = description
+        else:
+            # If no link is present, use the text inside the <li> as both title and description
+            li_text = ' '.join([str(text) for text in li.contents if isinstance(text, str)])
+            if li_text:
+                # Check if the item title already exists in the RSS feed
+                if li_text not in existing_items:
+                    # Add the item to the existing items set and the RSS feed
+                    existing_items.add(li_text)
+                    
+                    item = ET.SubElement(channel, "item")
+                    item_title = ET.SubElement(item, "title")
+                    item_title.text = li_text
+
+                    item_description = ET.SubElement(item, "description")
+                    item_description.text = li_text
 
     # Create an XML tree and save it to a file
     xml_tree = ET.ElementTree(rss)
