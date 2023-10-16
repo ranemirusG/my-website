@@ -29,17 +29,35 @@
             </section>
         </header>
         <main>
+			
+			<section id="news"></section>
+			<script>
+async function loadHome() {
+    const contentDiv = document.getElementById("news");
+    try {
+        const newsHtml = await fetchHtmlAsText("news.html");
+        contentDiv.innerHTML = newsHtml;
+    } catch (error) {
+        console.error("Error fetching or inserting content:", error);
+    }
+}
+
+			</script>
+			
+		
+			
+
 				
-            <section id="news">
-                <h2>News</h2>
-                <h3>WIP and subjects I'm up to these days:</h3>
-                <span class="dateline">(Updated: <time datetime="2023-10-09">October 9, 2023</time>)</span>
-                <ul class="wip">
-                    <li>
-                        I'm collecting useful notes in this <a href="https://github.com/ranemirusG/toolbox-notes" target="_blank" rel="noopener noreferrer">repository</a>
-                    </li>
-                </ul>
-            </section>
+            <!-- <section id="news"> -->
+                <!-- <h2>News</h2> -->
+                <!-- <h3>WIP and subjects I'm up to these days:</h3> -->
+                <!-- <span class="dateline">(Updated: <time datetime="2023-10-09">October 9, 2023</time>)</span> -->
+                <!-- <ul class="wip"> -->
+                    <!-- <li> -->
+                        <!-- I'm collecting useful notes in this <a href="https://github.com/ranemirusG/toolbox-notes" target="_blank" rel="noopener noreferrer">repository</a> -->
+                    <!-- </li> -->
+                <!-- </ul> -->
+            <!-- </section> -->
             <section id="more">
                 <h2>More</h2>
 				<ul>
@@ -63,5 +81,6 @@
 
     <!-- Include the JavaScript file -->
     <script src="script.js"></script>
+
 </body>
 </html>
