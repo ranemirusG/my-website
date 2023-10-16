@@ -89,17 +89,20 @@ li {
 	margin-bottom:0;
 }
 
-.wip li{
-	position: relative;
+.contact-icons {
 	list-style: none;
-	margin-left: 0;
-	/* padding-left: 1.2em; */
 }
-.wip li:before {
-	content: "📌";
-	position: absolute;
-	left: -2em;
+
+.wip li, .more-links li{
+	/* position: relative; */
+	list-style: inside;
+	/* margin-left: 0; */
 }
+/* .wip li:before { */
+	/* content: "📌"; */
+	/* position: absolute; */
+	/* left: -2em; */
+/* } */
 
 /* Style the modal */
 .modal {

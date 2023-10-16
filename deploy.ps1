@@ -2,7 +2,7 @@ $projectRootDir = "."
 Set-Location -Path $projectRootDir
 
 
-C:\Users\zgzen\virtualenvs_python\scraping\Scripts\python.exe $projectRootDir\update_xml.py
+~\virtualenvs_python\scraping\Scripts\python.exe $projectRootDir\update_xml.py
 
 
 git add .

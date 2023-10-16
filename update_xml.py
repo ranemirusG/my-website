@@ -27,55 +27,58 @@ soup = BeautifulSoup(html_content, "html.parser")
 # Find the "news" section
 news_section = soup.find("section", {"id": "news"})
 
-if news_section:
-    # Create the root element for the RSS feed
-    rss = ET.Element("rss", attrib={"version": "2.0"})
 
-    # Create the channel element
-    channel = ET.SubElement(rss, "channel")
+# Create the root element for the RSS feed
+rss = ET.Element("rss", attrib={"version": "2.0"})
 
-    # Add <title> and <link> to the channel
-    channel_title = ET.SubElement(channel, "title")
-    channel_title.text = soup.title.string if soup.title else "RSS Feed Title"
-    channel_link = ET.SubElement(channel, "link")
-    channel_link.text = base_url
+# Create the channel element
+channel = ET.SubElement(rss, "channel")
 
-    # Add <lastBuildDate> to the channel
-    last_build_date = ET.SubElement(channel, "lastBuildDate")
-    last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
+# Add <title> and <link> to the channel
+channel_title = ET.SubElement(channel, "title")
+channel_title.text = soup.title.string
+channel_link = ET.SubElement(channel, "link")
+channel_link.text = base_url
 
-    # Find and append new <li> items to the RSS feed
-    for li in news_section.find("ul", class_="wip").find_all("li"):
-        # Check if the <li> contains an <a> tag with an 'href' attribute
-        link_element = li.find("a", href=True)
+# Add <lastBuildDate> to the channel
+last_build_date = ET.SubElement(channel, "lastBuildDate")
+last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
-        if link_element:
-            # If a link is present, use it as the description
-            description = link_element["href"]
+# Find and append new <li> items to the RSS feed
+for li in news_section.find("ul", class_="wip").find_all("li"):
+    # Check if the <li> contains an <a> tag with an 'href' attribute
+    link_element = li.find("a", href=True)
 
-            # Use the link text as the title
-            title_text = ' '.join([str(text) for text in link_element.contents if isinstance(text, str)])
-        else:
-            # If no link is present, continue to the next <li> element without generating an <item>
-            continue
+    if link_element:
+        # If a link is present, use all the text within the <li> as the title
+        title_text = ' '.join([str(text) for text in li.stripped_strings])
+        # Use the link URL as the description
+        description = link_element["href"]
+    else:
+        # If no link is present, use all the text within the <li> as the title and avoid generating a <description>
+        title_text = ' '.join([str(text) for text in li.stripped_strings])
+        description = ""
 
-        if title_text:
-            # Check if the item title already exists in the RSS feed
-            if title_text not in existing_items:
-                # Add the item to the existing items set and the RSS feed
-                existing_items.add(title_text)
 
-                item = ET.SubElement(channel, "item")
-                item_title = ET.SubElement(item, "title")
-                item_title.text = title_text
 
-                item_description = ET.SubElement(item, "description")
-                item_description.text = description
+    if title_text:
+        # Check if the item title already exists in the RSS feed
+        if title_text not in existing_items:
+            # Add the item to the existing items set and the RSS feed
+            existing_items.add(title_text)
 
-    # Create an XML tree and save it to a file
-    xml_tree = ET.ElementTree(rss)
-    xml_tree.write("news_feed.xml")
+            item = ET.SubElement(channel, "item")
+            item_title = ET.SubElement(item, "title")
+            item_title.text = title_text
 
-    print("New items appended to the RSS feed.")
-else:
-    print("No 'news' section found in the HTML.")
+            item_description = ET.SubElement(item, "description")
+            item_description.text = description
+
+# Create an XML tree and save it to a file
+xml_tree = ET.ElementTree(rss)
+xml_tree.write("news_feed.xml")
+
+# print("New items appended to the RSS feed.")
+
+
+# print("No 'news' section found in the HTML.")
