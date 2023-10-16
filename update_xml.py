@@ -74,6 +74,7 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             item_description.text = description
             items_appended = True  # Items were appended
 
+
 # Insert the lastBuildDate into the HTML
 dateline_span = soup.find("span", class_="dateline")
 if dateline_span:
@@ -82,6 +83,9 @@ if dateline_span:
         time_element["datetime"] = datetime.datetime.now().strftime("%Y-%m-%d")
         time_element.string = datetime.datetime.now().strftime("%B %d, %Y")
 
+# Save the modified HTML back to a file
+with open("index.html", "w", encoding="utf-8") as html_file:
+    html_file.write(str(soup))
 
 # Create an XML tree and save it to a file
 xml_tree = ET.ElementTree(rss)
