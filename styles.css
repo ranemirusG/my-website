@@ -96,6 +96,8 @@ li {
 .wip li, .more-links li{
 	/* position: relative; */
 	list-style: inside;
+	text-indent: -1em;
+	padding-left: 1em;
 	/* margin-left: 0; */
 }
 /* .wip li:before { */

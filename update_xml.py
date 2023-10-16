@@ -27,7 +27,6 @@ soup = BeautifulSoup(html_content, "html.parser")
 # Find the "news" section
 news_section = soup.find("section", {"id": "news"})
 
-
 # Create the root element for the RSS feed
 rss = ET.Element("rss", attrib={"version": "2.0"})
 
@@ -45,6 +44,8 @@ last_build_date = ET.SubElement(channel, "lastBuildDate")
 last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
 # Find and append new <li> items to the RSS feed
+items_appended = False  # Flag to track whether items were appended
+
 for li in news_section.find("ul", class_="wip").find_all("li"):
     # Check if the <li> contains an <a> tag with an 'href' attribute
     link_element = li.find("a", href=True)
@@ -59,8 +60,6 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
         title_text = ' '.join([str(text) for text in li.stripped_strings])
         description = ""
 
-
-
     if title_text:
         # Check if the item title already exists in the RSS feed
         if title_text not in existing_items:
@@ -73,12 +72,20 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
 
             item_description = ET.SubElement(item, "description")
             item_description.text = description
+            items_appended = True  # Items were appended
+
+# Insert the lastBuildDate into the HTML
+dateline_span = soup.find("span", class_="dateline")
+if dateline_span:
+    time_element = dateline_span.find("time")
+    if time_element:
+        time_element["datetime"] = datetime.datetime.now().strftime("%Y-%m-%d")
 
 # Create an XML tree and save it to a file
 xml_tree = ET.ElementTree(rss)
 xml_tree.write("news_feed.xml")
 
-# print("New items appended to the RSS feed.")
-
-
-# print("No 'news' section found in the HTML.")
+if items_appended:
+    print("New items appended to the RSS feed")
+else:
+    print("No new items appended to the RSS feed")
