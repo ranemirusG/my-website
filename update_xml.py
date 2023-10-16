@@ -12,7 +12,7 @@ try:
     existing_xml = ET.parse("news_feed.xml")
     existing_root = existing_xml.getroot()
     for item in existing_root.findall(".//item"):
-        title = item.findtext(".//title")
+        title = item.findtext("title")
         existing_items.add(title)
 except FileNotFoundError:
     pass  # If the XML file doesn't exist, ignore the exception
@@ -54,7 +54,7 @@ if news_section:
             description = link_element["href"]
 
             # Use the link text as the title
-            title_text = ' '.join([str(text) for text in link_element.contents if isinstance(text, str)])
+            title_text = ' '.join(link_element.stripped_strings)
         else:
             # If no link is present, skip this <li> element
             continue
