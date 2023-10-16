@@ -79,7 +79,11 @@ dateline_span = soup.find("span", class_="dateline")
 if dateline_span:
     time_element = dateline_span.find("time")
     if time_element:
-        time_element["datetime"] = datetime.datetime.now().strftime("%Y-%m-%d")
+        # Update the text within the time element
+        time_element.string = datetime.datetime.now().strftime("%B %d, %Y")
+        # Update the surrounding text in the span
+        dateline_span.string = f"(Updated: {time_element})"
+
 
 # Create an XML tree and save it to a file
 xml_tree = ET.ElementTree(rss)
