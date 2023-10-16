@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
+import datetime
 
 # Base URL for the links in the RSS feed
 base_url = "https://ramirogarcia.xyz"
@@ -33,6 +34,12 @@ if news_section:
     # Create the channel element
     channel = ET.SubElement(rss, "channel")
 
+    # Add <title> and <link> to the channel
+    channel_title = ET.SubElement(channel, "title")
+    channel_title.text = soup.title.string if soup.title else "RSS Feed Title"
+    channel_link = ET.SubElement(channel, "link")
+    channel_link.text = base_url
+
     # Find and append new <li> items to the RSS feed
     for li in news_section.find("ul", class_="wip").find_all("li"):
         # Extract the content of the <li> element
@@ -58,6 +65,10 @@ if news_section:
             
             item_description = ET.SubElement(item, "description")
             item_description.text = description
+
+    # Add <lastBuildDate> to the channel
+    last_build_date = ET.SubElement(channel, "lastBuildDate")
+    last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
     # Create an XML tree and save it to a file
     xml_tree = ET.ElementTree(rss)
