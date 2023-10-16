@@ -1,7 +1,3 @@
-<rss version="2.0"><channel><title>
-						Collecting useful notes in this 
- repository</title><description>https://github.com/ranemirusG/toolbox-notes</description><item><title>
-						Enjoying some common points between Thelonious Monk's "Brilliant Corners" and Silvestre Revueltas' chamber music
-					</title></item><title>
-						Now you can get my news is through  subscription!
-					 RSS feed</title><description>news_feed.xml</description></channel></rss>
+<rss version="2.0"><channel><item><title>
+						I've identified parallels in Monk's "Brilliant Corners" and Revueltas' chamber work
+					</title><description /></item></channel></rss>

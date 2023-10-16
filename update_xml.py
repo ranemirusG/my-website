@@ -35,35 +35,29 @@ if news_section:
 
     # Find and append new <li> items to the RSS feed
     for li in news_section.find("ul", class_="wip").find_all("li"):
-        # Check if the <li> contains an <a> tag with an 'href' attribute
-        link_element = li.find("a", href=True)
-        if link_element:
-            # Extract the content of the <li> element
-            li_text = ''.join([str(text) for text in li.contents if isinstance(text, str)])
-
-            # Extract the text between the <a> tags
-            link_text = link_element.get_text()
-
-            # Use the link text within the title and the link as the description
-            item_title = ET.SubElement(channel, "title")
-            item_title.text = f"{li_text} {link_text}"
-
-            item_description = ET.SubElement(channel, "description")
-            item_description.text = link_element["href"]
-        else:
-            # If no link is present, use the entire <li> content as both title and skip generating a description
-            li_text = ' '.join(map(str, li.contents))
-
-            item_title = ET.SubElement(channel, "title")
-            item_title.text = li_text
+        # Extract the content of the <li> element
+        li_text = ' '.join([str(text) for text in li.contents if isinstance(text, str)])
 
         # Check if the item title already exists in the RSS feed
-        if item_title.text not in existing_items:
+        if li_text not in existing_items:
             # Add the item to the existing items set and the RSS feed
-            existing_items.add(item_title.text)
-        else:
-            # If the item already exists, remove it from the XML
-            channel.remove(item_title.getparent())
+            existing_items.add(li_text)
+            
+            # Check if the <li> contains an <a> tag with an 'href' attribute
+            link_element = li.find("a", href=True)
+            if link_element:
+                # If a link is present, use it as the description
+                description = link_element["href"]
+            else:
+                # If no link is present, use an empty string as the description
+                description = ""
+                
+            item = ET.SubElement(channel, "item")
+            item_title = ET.SubElement(item, "title")
+            item_title.text = li_text
+            
+            item_description = ET.SubElement(item, "description")
+            item_description.text = description
 
     # Create an XML tree and save it to a file
     xml_tree = ET.ElementTree(rss)
