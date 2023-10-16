@@ -18,38 +18,24 @@ if news_section:
     # Create the channel element
     channel = ET.SubElement(rss, "channel")
 
-    # Add required elements for the channel
-    title = ET.SubElement(channel, "title")
-    title.text = "Your RSS Feed Title"
-
-    link = ET.SubElement(channel, "link")
-    link.text = "http://example.com"
-
-    description = ET.SubElement(channel, "description")
-    description.text = "Your RSS Feed Description"
-
     # Find and append new <li> items to the RSS feed
     for li in news_section.find("ul", class_="wip").find_all("li"):
-        li_text = li.get_text(strip=True)
+        # Extract the content of the <li> element
+        li_text = ' '.join([text for text in li.stripped_strings])
 
-        # Check if the <li> item already exists in the RSS feed
-        item_exists = False
-        for item in channel.findall("item"):
-            if item.find("title").text.strip() == li_text:
-                item_exists = True
-                break
+        # Check if the <li> contains an <a> tag with an 'href' attribute
+        link_element = li.find("a", href=True)
+        if link_element:
+            link = link_element["href"]
+        else:
+            link = ""
 
-        # If the <li> item is new, append it to the RSS feed
-        if not item_exists:
-            item = ET.SubElement(channel, "item")
-            item_title = ET.SubElement(item, "title")
-            item_title.text = li_text
+        item = ET.SubElement(channel, "item")
+        item_title = ET.SubElement(item, "title")
+        item_title.text = li_text
 
-            item_link = ET.SubElement(item, "link")
-            # You can set the link value if applicable, e.g., a link to the original source
-
-            item_description = ET.SubElement(item, "description")
-            item_description.text = "Description of " + li_text  # Modify this as needed
+        item_link = ET.SubElement(item, "link")
+        item_link.text = link
 
     # Create an XML tree and save it to a file
     xml_tree = ET.ElementTree(rss)
