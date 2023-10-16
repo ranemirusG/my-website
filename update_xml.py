@@ -74,19 +74,13 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             item_description.text = description
             items_appended = True  # Items were appended
 
-# Find the dateline span
+# Insert the lastBuildDate into the HTML
 dateline_span = soup.find("span", class_="dateline")
-
 if dateline_span:
-    # Find the time element within the dateline span
     time_element = dateline_span.find("time")
-    
     if time_element:
-        # Update the text within the time element
+        time_element["datetime"] = datetime.datetime.now().strftime("%Y-%m-%d")
         time_element.string = datetime.datetime.now().strftime("%B %d, %Y")
-
-        # Update the surrounding text in the dateline span
-        dateline_span.string = f"(Updated: {time_element})"
 
 
 # Create an XML tree and save it to a file
