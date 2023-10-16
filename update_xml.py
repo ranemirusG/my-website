@@ -23,22 +23,28 @@ if news_section:
 
     # Find and append new <li> items to the RSS feed
     for li in news_section.find("ul", class_="wip").find_all("li"):
-        # Extract the content of the <li> element, including the <a> tag if present
-        li_text = ''.join(map(str, li.contents))
-
         # Check if the <li> contains an <a> tag with an 'href' attribute
         link_element = li.find("a", href=True)
         if link_element:
-            link = link_element["href"]
+            # Extract the content of the <li> element
+            li_text = ''.join([str(text) for text in li.contents if isinstance(text, str)])
+
+            # Extract the text between the <a> tags
+            link_text = link_element.get_text()
+
+            # Use the link text within the title and the link as the description
+            item_title = ET.SubElement(channel, "title")
+            item_title.text = f"{li_text} {link_text}"
+
+            item_description = ET.SubElement(channel, "description")
+            item_description.text = link_element["href"]
         else:
-            link = ""
+            # If no link is present, use the entire <li> content as both title and skip generating a description
+            li_text = ' '.join(map(str, li.contents))
 
-        item = ET.SubElement(channel, "item")
-        item_title = ET.SubElement(item, "title")
-        item_title.text = li_text
-
-        item_link = ET.SubElement(item, "link")
-        item_link.text = base_url
+            item = ET.SubElement(channel, "item")
+            item_title = ET.SubElement(item, "title")
+            item_title.text = li_text
 
     # Create an XML tree and save it to a file
     xml_tree = ET.ElementTree(rss)

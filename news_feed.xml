@@ -1,9 +1,7 @@
-<rss version="2.0"><channel><item><title>
-						Collecting useful notes in this &lt;a href="https://github.com/ranemirusG/toolbox-notes" rel="noopener noreferrer" target="_blank"&gt;repository&lt;/a&gt;
-</title><link>https://ramirogarcia.xyz</link></item><item><title>
+<rss version="2.0"><channel><title>
+						Collecting useful notes in this 
+ repository</title><description>https://github.com/ranemirusG/toolbox-notes</description><item><title>
 						Enjoying some common points between Thelonious Monk's "Brilliant Corners" and Silvestre Revueltas' chamber music
-					</title><link>https://ramirogarcia.xyz</link></item><item><title>
-						Now you can get my news is through &lt;a href="news_feed.xml"&gt;RSS feed&lt;/a&gt; subscription!
-					</title><link>https://ramirogarcia.xyz</link></item><item><title>
-						more test 5
-					</title><link>https://ramirogarcia.xyz</link></item></channel></rss>
+					</title></item><title>
+						Now you can get my news is through  subscription!
+					 RSS feed</title><description>news_feed.xml</description></channel></rss>
