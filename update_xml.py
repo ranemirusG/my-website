@@ -4,6 +4,18 @@ from bs4 import BeautifulSoup
 # Base URL for the links in the RSS feed
 base_url = "https://ramirogarcia.xyz"
 
+# Read the existing RSS feed (if any) to check for duplicates
+existing_items = set()
+
+try:
+    existing_xml = ET.parse("news_feed.xml")
+    existing_root = existing_xml.getroot()
+    for item in existing_root.findall(".//item"):
+        title = item.findtext(".//title")
+        existing_items.add(title)
+except FileNotFoundError:
+    pass  # If the XML file doesn't exist, ignore the exception
+
 # Read the HTML content from the "index.html" file
 with open("index.html", "r", encoding="utf-8") as html_file:
     html_content = html_file.read()
@@ -42,9 +54,16 @@ if news_section:
             # If no link is present, use the entire <li> content as both title and skip generating a description
             li_text = ' '.join(map(str, li.contents))
 
-            item = ET.SubElement(channel, "item")
-            item_title = ET.SubElement(item, "title")
+            item_title = ET.SubElement(channel, "title")
             item_title.text = li_text
+
+        # Check if the item title already exists in the RSS feed
+        if item_title.text not in existing_items:
+            # Add the item to the existing items set and the RSS feed
+            existing_items.add(item_title.text)
+        else:
+            # If the item already exists, remove it from the XML
+            channel.remove(item_title.getparent())
 
     # Create an XML tree and save it to a file
     xml_tree = ET.ElementTree(rss)
