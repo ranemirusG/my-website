@@ -46,6 +46,7 @@ last_build_date = ET.SubElement(channel, "lastBuildDate")
 last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
 
+
 # Find and append new <li> items to the RSS feed
 items_appended = False  # Flag to track whether items were appended
 
@@ -68,7 +69,7 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
 
             item_description = ET.SubElement(item, "description")
             item_description.set("type", "html")
-            item_description.text = description
+            item_description.text = html.escape(description)
             
             items_appended = True  # Items were appended
 
