@@ -43,6 +43,9 @@ channel_link.text = base_url
 last_build_date = ET.SubElement(channel, "lastBuildDate")
 last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
+# import xml.etree.ElementTree as ET
+import html
+
 # Find and append new <li> items to the RSS feed
 items_appended = False  # Flag to track whether items were appended
 
@@ -50,8 +53,7 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
     
     title_text = "News from Ramiro"
     
-    description = li
-    # print(description)
+    description = ' '.join([str(text) for text in li.contents])
 
     if description:
         # Check if the item title already exists in the RSS feed
@@ -64,11 +66,12 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             item_title = ET.SubElement(item, "title")
             item_title.text = title_text
 
-            item_description = ET.SubElement(item, "description")
-            item_description.text = "<![CDATA[" + str(description) + "]]>"
-            
+            item_summary = ET.SubElement(item, "summary")
+            item_summary.set("type", "html")
+            item_summary.text = description
             
             items_appended = True  # Items were appended
+
 
 
 # Insert the lastBuildDate into the HTML
