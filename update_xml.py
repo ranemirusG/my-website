@@ -30,7 +30,7 @@ soup = BeautifulSoup(html_content, "html.parser")
 news_section = soup.find("section", {"id": "news"})
 
 # Create the root element for the RSS feed
-rss = ET.Element("rss", attrib={"version": "2.0"})
+rss = ET.Element("rss", attrib={"version": "1.0"})
 
 # Create the channel element
 channel = ET.SubElement(rss, "channel")
@@ -47,16 +47,14 @@ last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %
 
 
 
-
 # Find and append new <li> items to the RSS feed
 items_appended = False  # Flag to track whether items were appended
 
-# Assuming 'news_section' is your BeautifulSoup object
-ul = news_section.find("ul", class_="wip")
-for li in ul.find_all("li"):
+for li in news_section.find("ul", class_="wip").find_all("li"):
+    
     title_text = "News from Ramiro"
-
-    description = ''.join([str(text) for text in li.contents])
+    
+    description = ' '.join([str(text) for text in li.contents])
 
     if description:
         # Check if the item title already exists in the RSS feed
@@ -65,14 +63,14 @@ for li in ul.find_all("li"):
             existing_items.add(description)
 
             item = ET.SubElement(channel, "item")
-
+            
             item_title = ET.SubElement(item, "title")
             item_title.text = title_text
 
             item_description = ET.SubElement(item, "description")
             item_description.set("type", "html")
-            item_description.text = description
-
+            item_description.text = html.escape(description)
+            
             items_appended = True  # Items were appended
 
 
