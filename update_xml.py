@@ -1,6 +1,7 @@
 import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import datetime
+import html
 
 # Base URL for the links in the RSS feed
 base_url = "https://ramirogarcia.xyz"
@@ -43,6 +44,7 @@ channel_link.text = base_url
 last_build_date = ET.SubElement(channel, "lastBuildDate")
 last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
+
 # Find and append new <li> items to the RSS feed
 items_appended = False  # Flag to track whether items were appended
 
@@ -64,12 +66,7 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             item_title.text = title_text
 
             item_description = ET.SubElement(item, "description")
-            item_description.text = description
-            
-            # Manually create CDATA section
-            cdata_description = ET.Element("description")
-            cdata_description.text = "<![CDATA[{}]]>".format(description)
-            item.append(cdata_description)
+            item_description.text = html.escape(description)
             
             items_appended = True  # Items were appended
 
