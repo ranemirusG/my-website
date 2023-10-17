@@ -48,7 +48,7 @@ items_appended = False  # Flag to track whether items were appended
 
 for li in news_section.find("ul", class_="wip").find_all("li"):
     
-    title_text = "News from ramirogarcia.xyz"
+    title_text = "News from Ramiro"
     
     description = ' '.join([str(text) for text in li.contents])
 
@@ -64,10 +64,15 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             item_title.text = title_text
 
             item_description = ET.SubElement(item, "description")
-            item_description.text = "<![CDATA[<p>" + description + "</p>]]>"
+            item_description.text = description
             
+            # Manually create CDATA section
+            cdata_description = ET.Element("description")
+            cdata_description.text = "<![CDATA[{}]]>".format(description)
+            item.append(cdata_description)
             
             items_appended = True  # Items were appended
+
 
 
 # Insert the lastBuildDate into the HTML
