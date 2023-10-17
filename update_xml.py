@@ -47,14 +47,16 @@ last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %
 
 
 
+
 # Find and append new <li> items to the RSS feed
 items_appended = False  # Flag to track whether items were appended
 
-for li in news_section.find("ul", class_="wip").find_all("li"):
-    
+# Assuming 'news_section' is your BeautifulSoup object
+ul = news_section.find("ul", class_="wip")
+for li in ul.find_all("li"):
     title_text = "News from Ramiro"
-    
-    description = ' '.join([str(text) for text in li.contents])
+
+    description = ''.join([str(text) for text in li.contents])
 
     if description:
         # Check if the item title already exists in the RSS feed
@@ -63,15 +65,16 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             existing_items.add(description)
 
             item = ET.SubElement(channel, "item")
-            
+
             item_title = ET.SubElement(item, "title")
             item_title.text = title_text
 
             item_description = ET.SubElement(item, "description")
             item_description.set("type", "html")
-            item_description.text = html.escape(description)
-            
+            item_description.text = description
+
             items_appended = True  # Items were appended
+
 
 
 
