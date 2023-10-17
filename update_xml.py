@@ -47,31 +47,39 @@ last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %
 items_appended = False  # Flag to track whether items were appended
 
 for li in news_section.find("ul", class_="wip").find_all("li"):
+    
+    title_text = "News from ramirogarcia.xyz"
+    
     # Check if the <li> contains an <a> tag with an 'href' attribute
     link_element = li.find("a", href=True)
 
     if link_element:
-        # If a link is present, use all the text within the <li> as the title
-        title_text = ' '.join([str(text) for text in li.stripped_strings])
-        # Use the link URL as the description
-        description = link_element["href"]
+        # If a link is present, use all the text within the <li> as the xml <description>
+        description = ' '.join([str(text) for text in li.stripped_strings])
+        # Use the link URL as the xml <link>
+        link = link_element["href"]
     else:
-        # If no link is present, use all the text within the <li> as the title and avoid generating a <description>
-        title_text = ' '.join([str(text) for text in li.stripped_strings])
-        description = ""
+        # If no link is present, use all the text within the <li> as the title and avoid generating a <link>
+        description = ' '.join([str(text) for text in li.stripped_strings])
+        link = ""
 
-    if title_text:
+    if description:
         # Check if the item title already exists in the RSS feed
-        if title_text not in existing_items:
+        if description not in existing_items:
             # Add the item to the existing items set and the RSS feed
-            existing_items.add(title_text)
+            existing_items.add(description)
 
             item = ET.SubElement(channel, "item")
+            
             item_title = ET.SubElement(item, "title")
             item_title.text = title_text
 
             item_description = ET.SubElement(item, "description")
             item_description.text = description
+            
+            item_link = ET.SubElement(item, "link")
+            item_link.text = link
+            
             items_appended = True  # Items were appended
 
 
