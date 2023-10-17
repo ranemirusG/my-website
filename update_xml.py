@@ -2,7 +2,6 @@ import xml.etree.ElementTree as ET
 from bs4 import BeautifulSoup
 import datetime
 
-
 # Base URL for the links in the RSS feed
 base_url = "https://ramirogarcia.xyz"
 
@@ -44,12 +43,9 @@ channel_link.text = base_url
 last_build_date = ET.SubElement(channel, "lastBuildDate")
 last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
-
-
 items_appended = False  # Flag to track whether items were appended
 
 for li in news_section.find("ul", class_="wip").find_all("li"):
-    
     title_text = "News from Ramiro"
     
     # Check if the <li> contains an <a> tag with an 'href' attribute
@@ -83,9 +79,8 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             
             items_appended = True  # Items were appended
 
-
-
-
+# Prettify the HTML with 4 spaces for indentation
+soup_prettified = soup.prettify(formatter="html")
 
 # Insert the lastBuildDate into the HTML
 dateline_span = soup.find("span", class_="dateline")
@@ -97,7 +92,7 @@ if dateline_span:
 
 # Save the modified HTML back to a file
 with open("index.html", "w", encoding="utf-8") as html_file:
-    html_file.write(str(soup))
+    html_file.write(str(soup_prettified))
 
 # Create an XML tree and save it to a file
 xml_tree = ET.ElementTree(rss)
