@@ -28,7 +28,7 @@ soup = BeautifulSoup(html_content, "html.parser")
 news_section = soup.find("section", {"id": "news"})
 
 # Create the root element for the RSS feed
-rss = ET.Element("rss", attrib={"version": "1.0"})
+rss = ET.Element("rss", attrib={"version": "2.0"})
 
 # Create the channel element
 channel = ET.SubElement(rss, "channel")
