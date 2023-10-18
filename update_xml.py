@@ -5,7 +5,8 @@ import datetime
 # Base URL for the links in the RSS feed
 base_url = "https://ramirogarcia.xyz"
 
-date = datetime.datetime.now().strftime("%a, %d %B %Y")
+date_format = "%a, %d %B %Y"
+date = datetime.datetime.now().strftime(date_format)
 # datetime.datetime.now().strftime("%B %d, %Y")
 # datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
 
@@ -84,16 +85,17 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             
             items_appended = True  # Items were appended
 
-# Prettify the HTML with 4 spaces for indentation
-soup_prettified = soup.prettify(formatter="html")
 
 # Insert the lastBuildDate into the HTML
 dateline_span = soup.find("span", class_="dateline")
 if dateline_span:
     time_element = dateline_span.find("time")
     if time_element:
-        time_element["datetime"] = datetime.datetime.now().strftime("%Y-%m-%d")
+        time_element["datetime"] = datetime.datetime.now().strftime(date_format)
         time_element.string = date
+
+# Prettify the HTML with 4 spaces for indentation
+soup_prettified = soup.prettify(formatter="html")
 
 # Save the modified HTML back to a file
 with open("index.html", "w", encoding="utf-8") as html_file:
