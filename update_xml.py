@@ -5,6 +5,11 @@ import datetime
 # Base URL for the links in the RSS feed
 base_url = "https://ramirogarcia.xyz"
 
+date = datetime.datetime.now().strftime("%a, %d %B %Y")
+# datetime.datetime.now().strftime("%B %d, %Y")
+# datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
+
+
 # Read the existing RSS feed (if any) to check for duplicates
 existing_items = set()
 
@@ -41,7 +46,7 @@ channel_link.text = base_url
 
 # Add <lastBuildDate> to the channel
 last_build_date = ET.SubElement(channel, "lastBuildDate")
-last_build_date.text = datetime.datetime.now().strftime("%a, %d %b %Y %H:%M:%S %z")
+last_build_date.text = date
 
 items_appended = False  # Flag to track whether items were appended
 
@@ -88,7 +93,7 @@ if dateline_span:
     time_element = dateline_span.find("time")
     if time_element:
         time_element["datetime"] = datetime.datetime.now().strftime("%Y-%m-%d")
-        time_element.string = datetime.datetime.now().strftime("%B %d, %Y")
+        time_element.string = date
 
 # Save the modified HTML back to a file
 with open("index.html", "w", encoding="utf-8") as html_file:
