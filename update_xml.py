@@ -95,7 +95,7 @@ if dateline_span:
         time_element.string = date
 
 # Prettify the HTML with 4 spaces for indentation
-soup_prettified = soup.prettify(formatter="html")
+# soup_prettified = soup.prettify(formatter="html")
 
 # Save the modified HTML back to a file
 with open("index.html", "w", encoding="utf-8") as html_file:
