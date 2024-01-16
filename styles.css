@@ -60,9 +60,7 @@ a:hover {
 
 
 
-li.go-home{
-	text-align:right;
-}
+
 
 
 
@@ -113,6 +111,13 @@ li {
 	/* position: absolute; */
 	/* left: -2em; */
 /* } */
+
+
+/* gallery, bibliography, resume HOME ICON (nav bar)*/
+li.go-home{
+	text-align:right;
+}
+
 
 /* Style the modal */
 .modal {
