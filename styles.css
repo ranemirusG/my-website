@@ -93,7 +93,7 @@ li {
 	list-style: none;
 }
 
-.wip li, .more-links li, .cv-lang li{
+.wip li, .more-links li{
 	/* position: relative; */
 	list-style: inside;
 	text-indent: -1em;
