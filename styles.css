@@ -59,6 +59,14 @@ a:hover {
 
 
 
+
+li.go-home{
+	text-align:right;
+}
+
+
+
+
 /* Style lists for better readability and spacing */
 ul {
   list-style-type: none;

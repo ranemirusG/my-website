@@ -5,11 +5,11 @@ function generatePDF() {
     const pdfVersion = document.getElementById('contact-pdf');
     const pdfButton = document.getElementById('pdf-button');
 
-    const language = document.documentElement.lang || 'en'; // Get the language from HTML lang attribute, default to 'en'
+    const language = (document.documentElement.lang || 'en').toUpperCase(); // Get the language from HTML lang attribute, default to 'en'
     
     const options = {
         margin: [15, 15],
-        filename: `RamiroGarcia_resume_${language}_${getCurrentDate()}.pdf`, // Include language in the filename
+        filename: `RamiroGarcia_resume-${language}_${getCurrentDate()}.pdf`, // Include language in the filename
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { scale: 2, letterRendering: true },
         jsPDF: { unit: 'pt', format: 'letter', orientation: 'portrait' },
