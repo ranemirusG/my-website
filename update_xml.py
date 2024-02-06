@@ -85,14 +85,16 @@ for li in news_section.find("ul", class_="wip").find_all("li"):
             
             items_appended = True  # Items were appended
 
-
-# Insert the lastBuildDate into the HTML
-dateline_span = soup.find("span", class_="dateline")
-if dateline_span:
-    time_element = dateline_span.find("time")
-    if time_element:
-        time_element["datetime"] = datetime.datetime.now().strftime(date_format)
-        time_element.string = date
+            # TEST
+            # Para no cambiar la parte de "(Updated:...)" sin no hay nada nuevo en WIP
+            # Insert the lastBuildDate into the HTML
+            dateline_span = soup.find("span", class_="dateline")
+            if dateline_span:
+                time_element = dateline_span.find("time")
+                if time_element:
+                    time_element["datetime"] = datetime.datetime.now().strftime(date_format)
+                    time_element.string = date
+            # END TEST
 
 # Prettify the HTML with 4 spaces for indentation
 soup_prettified = soup.prettify(formatter="html")
