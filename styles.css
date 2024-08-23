@@ -13,6 +13,7 @@ html, body {
 /* Set a background color and default font */
 html {
   font-family: 'Open Sans', sans-serif;
+  background-color: #f0f8ff;
 }
 
 /* Create a container to center content and add some spacing */
